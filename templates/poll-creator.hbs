@@ -1,0 +1,124 @@
+<form class="vp-creator">
+  <div class="vp-creator-main">
+    <div class="vp-field">
+      <div class="vp-question-header">
+        <label class="vp-label">{{localize "VISUAL_POLLS.Creator.QuestionLabel"}}</label>
+        <div class="vp-creator-toolbar">
+          <button type="button" class="vp-icon-btn is-tool" data-action="savePoll" title="{{localize 'VISUAL_POLLS.Creator.SavePoll'}}">
+            <i class="fa-solid fa-floppy-disk"></i>
+          </button>
+          <button type="button" class="vp-icon-btn is-tool" data-action="loadPoll" title="{{localize 'VISUAL_POLLS.Creator.LoadPoll'}}">
+            <i class="fa-solid fa-folder-open"></i>
+          </button>
+          <button type="button" class="vp-icon-btn is-tool{{#if timerActive}} is-active{{/if}}" data-action="openTimerDialog" title="{{localize 'VISUAL_POLLS.Timer.ButtonTitle'}}">
+            <i class="fa-solid fa-clock"></i>
+          </button>
+          <button type="button" class="vp-primary vp-start" data-action="start">
+            <i class="fa-solid fa-play"></i> {{localize "VISUAL_POLLS.Creator.Start"}}
+          </button>
+        </div>
+      </div>
+      <input
+        type="text"
+        class="vp-question-input"
+        data-field="question"
+        value="{{question}}"
+        placeholder="{{localize 'VISUAL_POLLS.Creator.QuestionPlaceholder'}}"
+        autofocus
+      />
+    </div>
+
+    <div class="vp-toggles">
+      <label class="vp-toggle">
+        <span class="vp-toggle-label">{{allowMultipleLabel}}</span>
+        <input type="checkbox" data-field="allowMultiple" {{checked allowMultiple}} />
+        <span class="vp-toggle-track"><span class="vp-toggle-thumb"></span></span>
+      </label>
+      <label class="vp-toggle">
+        <span class="vp-toggle-label">{{resultsVisibleLabel}}</span>
+        <input type="checkbox" data-field="resultsVisible" {{checked resultsVisible}} />
+        <span class="vp-toggle-track"><span class="vp-toggle-thumb"></span></span>
+      </label>
+      <div class="vp-toggle" data-action="cycleShowVoters">
+        <span class="vp-toggle-label">{{showVotersLabel}}</span>
+        <div class="vp-tristate-track" data-field="showVoters" data-value="{{showVoters}}">
+          <span class="vp-tristate-thumb"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vp-field">
+      <div class="vp-options-header">
+        <label class="vp-label">{{localize "VISUAL_POLLS.Creator.OptionsLabel"}}</label>
+        <button type="button" class="vp-add" data-action="addOption">
+          <i class="fa-solid fa-plus"></i> {{localize "VISUAL_POLLS.Creator.AddOption"}}
+        </button>
+      </div>
+      <div class="vp-option-list">
+        {{#each options}}
+        <div class="vp-option-row">
+          <span class="vp-option-bullet"></span>
+          <button
+            type="button"
+            class="vp-option-img-btn"
+            data-action="pickImage"
+            data-index="{{@index}}"
+            title="{{localize 'VISUAL_POLLS.Creator.PickImage'}}"
+          >
+            <img src="{{this.image}}" alt="" />
+          </button>
+          <input
+            type="text"
+            class="vp-option-input"
+            data-option="{{@index}}"
+            value="{{this.text}}"
+            placeholder="{{localize 'VISUAL_POLLS.Creator.OptionPlaceholder'}}"
+          />
+          <button
+            type="button"
+            class="vp-icon-btn vp-remove"
+            data-action="removeOption"
+            data-index="{{@index}}"
+            {{#unless ../canRemove}}disabled{{/unless}}
+            aria-label="{{localize 'VISUAL_POLLS.Creator.RemoveOption'}}"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <div class="vp-target-panel">
+    <span class="vp-label">{{localize "VISUAL_POLLS.Creator.TargetPlayers"}}</span>
+    <div class="vp-user-list">
+      <button
+        type="button"
+        class="vp-user-btn{{#if targetAll}} is-active{{/if}}"
+        data-action="toggleTargetAll"
+      >
+        <i class="fa-solid fa-users"></i>
+        <span class="vp-user-name">{{localize "VISUAL_POLLS.Creator.TargetAll"}}</span>
+      </button>
+      {{#if hasConnectedPlayers}}
+      <div class="vp-user-divider"></div>
+      {{#each connectedPlayers}}
+      <button
+        type="button"
+        class="vp-user-btn{{#if this.isSelected}} is-active{{/if}}"
+        data-action="toggleTargetUser"
+        data-user-id="{{this.id}}"
+        style="--vp-user-color: {{this.color}}"
+      >
+        <span class="vp-user-color-dot"></span>
+        <span class="vp-user-name">{{this.name}}</span>
+      </button>
+      {{/each}}
+      {{else}}
+      <span class="vp-user-empty">{{localize "VISUAL_POLLS.Creator.NoPlayers"}}</span>
+      {{/if}}
+    </div>
+  </div>
+
+</form>

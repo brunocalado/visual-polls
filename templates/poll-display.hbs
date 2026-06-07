@@ -1,0 +1,63 @@
+<div class="vp-display">
+  {{#if initialPercent}}
+  <div class="vp-timer-track">
+    <div class="vp-timer-fill" style="--vp-timer-fill: {{initialPercent}}%"></div>
+  </div>
+  {{/if}}
+  <h2 class="vp-question">{{question}}</h2>
+
+  <div class="vp-options {{#if showResults}}vp-with-results{{/if}}">
+    {{#each options}}
+    <div class="vp-result-group">
+      <button
+        type="button"
+        class="vp-card {{#if selected}}vp-selected{{/if}}"
+        data-action="select"
+        data-index="{{index}}"
+        {{#if ../disabled}}disabled{{/if}}
+      >
+        {{#if ../showResults}}
+        <span class="vp-bar" style="--vp-fill: {{percent}}%"></span>
+        {{/if}}
+        <span class="vp-card-img"><img src="{{image}}" alt="" /></span>
+        <span class="vp-card-body">
+          <span class="vp-card-text">{{text}}</span>
+          {{#if ../showResults}}
+          <span class="vp-card-stat">{{percent}}%</span>
+          {{/if}}
+        </span>
+      </button>
+      {{#if hasVoters}}
+      <p class="vp-voter-list">{{voterNames}}</p>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+
+  <footer class="vp-footer">
+    {{#if closed}}
+      <p class="vp-status">{{localize "VISUAL_POLLS.Display.Closed"}}</p>
+    {{else if voted}}
+      <p class="vp-status vp-status-done">
+        <i class="fa-solid fa-circle-check"></i> {{localize "VISUAL_POLLS.Display.YouVoted"}}
+      </p>
+    {{else}}
+      <button type="button" class="vp-primary vp-confirm" data-action="confirm" disabled>
+        <i class="fa-solid fa-check"></i> {{localize "VISUAL_POLLS.Display.Confirm"}}
+      </button>
+    {{/if}}
+
+    {{#if showResults}}
+    <p class="vp-total">
+      <i class="fa-solid fa-users"></i>
+      {{localize "VISUAL_POLLS.Display.TotalVotes"}}: <strong>{{totalVoters}}</strong>
+    </p>
+    {{/if}}
+  </footer>
+
+  {{#if showFinalBanner}}
+  <div class="vp-final-banner">
+    <i class="fa-solid fa-flag-checkered"></i> {{localize "VISUAL_POLLS.Display.FinalResults"}}
+  </div>
+  {{/if}}
+</div>

@@ -1,0 +1,248 @@
+/* Module-wide tokens and components shared across the poll Applications. */
+.visual-polls {
+  --vp-accent: #7c5cff;
+  --vp-accent-soft: rgba(124, 92, 255, 0.18);
+  --vp-accent-glow: rgba(124, 92, 255, 0.45);
+  --vp-surface: #16131f;
+  --vp-surface-raised: #211c30;
+  --vp-surface-card: #1b1726;
+  --vp-border: rgba(255, 255, 255, 0.08);
+  --vp-border-strong: rgba(255, 255, 255, 0.16);
+  --vp-text: #ece9f5;
+  --vp-text-dim: #a39fb5;
+  --vp-radius: 12px;
+  --vp-radius-sm: 8px;
+
+  color: var(--vp-text);
+
+  /* Frame the windows with the immersive dark surface. */
+  &.vp-app .window-content {
+    background: linear-gradient(160deg, var(--vp-surface-raised), var(--vp-surface));
+    border-radius: var(--vp-radius);
+    padding: 1rem;
+    color: var(--vp-text);
+    max-height: 70vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .vp-question {
+    margin: 0 0 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    border: none;
+    color: var(--vp-text);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .vp-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* Option card: a styled button with an optional results bar behind the label.
+     height:auto overrides Foundry's global button height variable so the card
+     grows to match its flex content rather than being capped at a fixed form-field height. */
+  .vp-card {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: left;
+    background: var(--vp-surface-card);
+    border: 1px solid var(--vp-border);
+    border-radius: var(--vp-radius-sm);
+    color: var(--vp-text);
+    cursor: pointer;
+    transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: var(--vp-border-strong);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  .vp-card.vp-static {
+    cursor: default;
+  }
+
+  /* Animated fill driven by the inline --vp-fill custom property. */
+  .vp-bar {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--vp-fill, 0%);
+    background: linear-gradient(90deg, var(--vp-accent-soft), var(--vp-accent-glow));
+    border-right: 2px solid var(--vp-accent);
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  /* 1×1 option image pinned to the left edge of the card.
+     Fixed 50×50px so the source image is never cropped and never inflates the card,
+     regardless of the image's natural dimensions. */
+  .vp-card-img {
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  .vp-card-body {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.7rem 0.85rem;
+    min-height: 1.4rem;
+  }
+
+  .vp-card-text {
+    font-weight: 600;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .vp-card-stat {
+    flex: 0 0 auto;
+    font-variant-numeric: tabular-nums;
+    color: var(--vp-text-dim);
+
+    em {
+      font-style: normal;
+      opacity: 0.75;
+    }
+  }
+
+  .vp-card.vp-selected {
+    border-color: var(--vp-accent);
+    box-shadow: 0 0 0 1px var(--vp-accent), 0 0 18px var(--vp-accent-glow);
+
+    /* Specificity (0,4,0) beats the generic hover rule (0,3,0), so the purple
+       border and glow are preserved when hovering an already-selected card. */
+    &:hover:not(:disabled) {
+      border-color: var(--vp-accent);
+      box-shadow: 0 0 0 1px var(--vp-accent), 0 0 26px var(--vp-accent-glow);
+    }
+
+    .vp-card-stat {
+      color: var(--vp-text);
+    }
+  }
+
+  /* Wraps one option card + its optional voter list as a unit. */
+  .vp-result-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .vp-voter-list {
+    margin: 0;
+    padding: 0.2rem 0.85rem 0.3rem;
+    font-size: 0.8rem;
+    color: var(--vp-text-dim);
+    line-height: 1.6;
+  }
+
+  .vp-footer {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .vp-total {
+    margin: 0;
+    margin-left: auto;
+    font-size: 0.9rem;
+    color: var(--vp-text-dim);
+
+    strong {
+      color: var(--vp-text);
+    }
+  }
+
+  /* Override Foundry's global orange focus outline scoped to this module only. */
+  a.button:focus,
+  button:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* Neutral secondary action (e.g. "Close Poll" without sharing results). */
+  .vp-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--vp-border-strong);
+    border-radius: var(--vp-radius-sm);
+    color: var(--vp-text-dim);
+    cursor: pointer;
+    transition: background 0.12s ease, transform 0.12s ease, opacity 0.12s ease;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.13);
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+  }
+
+  /* Prominent primary action shared by every Application. */
+  .vp-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    font-weight: 700;
+    background: linear-gradient(180deg, var(--vp-accent), #5a3fe0);
+    border: none;
+    border-radius: var(--vp-radius-sm);
+    color: #fff;
+    cursor: pointer;
+    transition: filter 0.12s ease, transform 0.12s ease, opacity 0.12s ease;
+
+    &:hover:not(:disabled) {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+  }
+}

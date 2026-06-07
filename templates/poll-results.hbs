@@ -1,0 +1,67 @@
+<div class="vp-results">
+  {{#if initialPercent}}
+  <div class="vp-timer-track">
+    <div class="vp-timer-fill" style="--vp-timer-fill: {{initialPercent}}%"></div>
+  </div>
+  {{/if}}
+  <header class="vp-results-head">
+    <h2 class="vp-question">{{question}}</h2>
+    <span class="vp-state-pill {{#if open}}vp-state-open{{else}}vp-state-closed{{/if}}">
+      {{#if open}}{{localize "VISUAL_POLLS.Results.Live"}}{{else}}{{localize "VISUAL_POLLS.Results.Ended"}}{{/if}}
+    </span>
+  </header>
+
+  <div class="vp-options vp-with-results">
+    {{#each options}}
+    <div class="vp-result-group">
+      <div class="vp-card vp-static">
+        <span class="vp-bar" style="--vp-fill: {{percent}}%"></span>
+        <span class="vp-card-img"><img src="{{image}}" alt="" /></span>
+        <span class="vp-card-body">
+          <span class="vp-card-text">{{text}}</span>
+          <span class="vp-card-stat">{{percent}}% <em>({{count}})</em></span>
+        </span>
+      </div>
+      {{#if hasVoters}}
+      <p class="vp-voter-list">{{voterNames}}</p>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+
+  <footer class="vp-footer">
+    <div class="vp-gm-actions">
+      {{#if open}}
+        {{#if resultsVisible}}
+        <button type="button" class="vp-primary vp-end-published" data-action="endPublished"
+          data-tooltip="{{localize 'VISUAL_POLLS.Results.TooltipEndLive'}}">
+          <i class="fa-solid fa-flag-checkered"></i> {{localize "VISUAL_POLLS.Results.EndLive"}}
+        </button>
+        {{else}}
+        <button type="button" class="vp-secondary vp-end-hidden" data-action="endHidden"
+          data-tooltip="{{localize 'VISUAL_POLLS.Results.TooltipEndHidden'}}">
+          <i class="fa-solid fa-eye-slash"></i> {{localize "VISUAL_POLLS.Results.EndHidden"}}
+        </button>
+        <button type="button" class="vp-primary vp-end-published" data-action="endPublished"
+          data-tooltip="{{localize 'VISUAL_POLLS.Results.TooltipEndPublished'}}">
+          <i class="fa-solid fa-flag-checkered"></i> {{localize "VISUAL_POLLS.Results.EndPublished"}}
+        </button>
+        {{/if}}
+      {{/if}}
+      {{#if closed}}
+      <button type="button" class="vp-secondary vp-repeat" data-action="repeatPoll"
+        data-tooltip="{{localize 'VISUAL_POLLS.Results.TooltipRepeat'}}">
+        <i class="fa-solid fa-rotate-right"></i> {{localize "VISUAL_POLLS.Results.Repeat"}}
+      </button>
+      <button type="button" class="vp-primary vp-new" data-action="newPoll">
+        <i class="fa-solid fa-plus"></i> {{localize "VISUAL_POLLS.Results.New"}}
+      </button>
+      {{/if}}
+    </div>
+
+    <p class="vp-total">
+      <i class="fa-solid fa-users"></i>
+      {{localize "VISUAL_POLLS.Results.TotalVotes"}}: <strong>{{totalVoters}}</strong>
+    </p>
+  </footer>
+</div>
