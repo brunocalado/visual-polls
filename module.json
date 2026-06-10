@@ -2,7 +2,7 @@
   "id": "visual-polls",
   "title": "Visual Polls",
   "description": "Create modern, visual polls and broadcast them to every player at once. Players vote through a polished template while results animate in real time.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "compatibility": {
     "minimum": "14",
     "verified": "14"
