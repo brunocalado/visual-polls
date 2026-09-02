@@ -4,8 +4,6 @@
 
 Compose a question, add answer options, and broadcast it to every player at once. A polished voting window opens on their screens automatically. Results animate in real time as votes come in. No menus to hunt through, no extra setup.
 
-[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-Donate-red?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/mestredigital)
-
 ---
 
 ## What it looks like
@@ -32,6 +30,8 @@ Compose a question, add answer options, and broadcast it to every player at once
 </td>
 </tr>
 </table>
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-Donate-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/mestredigital) [![More Modules](https://img.shields.io/badge/Foundry%20VTT-More%20Modules-red?style=for-the-badge&logo=gamepad)](https://mestredigital.online/pages/projetos-en)
 
 ---
 

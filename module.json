@@ -5,29 +5,37 @@
   "version": "0.0.2",
   "compatibility": {
     "minimum": "14",
-    "verified": "14"
+    "verified": "14",
+    "maximum": "14"
   },
-
   "esmodules": [
     "scripts/main.js"
   ],
-
   "styles": [
-    "styles/base.css",
-    "styles/poll-creator.css",
-    "styles/poll-display.css",
-    "styles/poll-results.css",
-    "styles/sfx-settings.css"
+    {
+      "src": "styles/base.css"
+    },
+    {
+      "src": "styles/poll-creator.css"
+    },
+    {
+      "src": "styles/poll-display.css"
+    },
+    {
+      "src": "styles/poll-results.css"
+    },
+    {
+      "src": "styles/sfx-settings.css"
+    }
   ],
-
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     }
   ],
-
   "authors": [
     {
       "name": "Mestre Digital",
@@ -35,24 +43,9 @@
       "flags": {}
     }
   ],
-  
   "socket": true,
-
   "url": "https://github.com/brunocalado/visual-polls",
   "manifest": "https://raw.githubusercontent.com/brunocalado/visual-polls/main/module.json",
-  "download": "https://codeload.github.com/brunocalado/visual-polls/zip/main"
-
+  "download": "https://codeload.github.com/brunocalado/visual-polls/zip/main",
+  "flags": {}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
